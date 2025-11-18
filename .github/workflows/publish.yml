@@ -52,13 +52,15 @@ jobs:
           git push origin ${{ steps.next_tag.outputs.next_tag }}
 
       # --- Build & Publish ---
-      - name: Set up JDK 17
+      - name: Install Java and Maven
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
           java-version: 17
+          distribution: 'temurin'
+          cache: 'maven'
 
-      - name: Build & publish all modules
-        run: ./gradlew publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release Maven package
+        uses: WasiqB/maven-publish-action@v1
+        with:
+          nexus_username: ${{ secrets.nexus_username }}
+          nexus_password: ${{ secrets.nexus_password }}

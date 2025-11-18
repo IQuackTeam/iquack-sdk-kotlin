@@ -34,9 +34,12 @@ jobs:
           echo "next_tag=$next_tag" >> $GITHUB_OUTPUT
 
       - name: Create new tag
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag ${{ steps.next_tag.outputs.next_tag }}
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/IQuackTeam/iquack-sdk-kotlin.git
           git push origin ${{ steps.next_tag.outputs.next_tag }}
 

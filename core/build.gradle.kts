@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.multiplatform)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.android.library)
+    id("maven-publish")
 //    alias(libs.plugins.android.application)
 }
 
@@ -13,6 +14,9 @@ android {
     compileSdk = 36
     defaultConfig {
         minSdk = 26
+    }
+    publishing {
+        singleVariant("release")
     }
 }
 

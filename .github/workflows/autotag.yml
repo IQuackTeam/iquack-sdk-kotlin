@@ -1,4 +1,4 @@
-name: Auto Tag & Publish
+name: Auto Tag Version
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  tag-and-publish:
+  tag:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -23,7 +23,6 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
 
-      # --- Auto Tag ---
       - name: Get latest tag
         id: get_tag
         run: |
@@ -50,15 +49,3 @@ jobs:
           git tag ${{ steps.next_tag.outputs.next_tag }}
           git remote set-url origin git@github.com:${{ github.repository }}.git
           git push origin ${{ steps.next_tag.outputs.next_tag }}
-
-      # --- Build & Publish ---
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 17
-
-      - name: Build & publish all modules
-        run: ./gradlew publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

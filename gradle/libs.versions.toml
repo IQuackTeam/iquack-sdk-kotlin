@@ -6,6 +6,7 @@ ktorClientCore = "3.3.2"
 coreKtx = "1.17.0"
 appcompat = "1.7.1"
 material = "1.13.0"
+mavenPublish = "0.35.0"
 
 
 [libraries]
@@ -22,5 +23,5 @@ material = { group = "com.google.android.material", name = "material", version.r
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-android-application = { id = "com.android.application", version.ref = "agp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

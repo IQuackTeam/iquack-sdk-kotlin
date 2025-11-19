@@ -86,4 +86,13 @@ publishing {
             }
         }
     }
+    repositories {
+        maven {
+            url = uri(findProperty("MAVEN_REPO_URL") as String)
+            credentials {
+                username = findProperty("MAVEN_REPO_USER") as String
+                password = findProperty("MAVEN_REPO_PASSWORD") as String
+            }
+        }
+    }
 }

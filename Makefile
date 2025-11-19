@@ -14,7 +14,7 @@ publish:
 	export JAVA_HOME=$(JAVA_HOME)
 	./gradlew :assemble
 	@echo "Публикация на Maven Central..."
-	./gradlew publishAllPublicationsToMavenCentralRepository
+	./gradlew publish
 	@echo "Создание тега v$(VERSION)..."
 	git tag v$(VERSION)
 	@echo "Проверка изменений..."

@@ -56,42 +56,23 @@ dependencies {
 group = findProperty("GROUP") as String
 version = findProperty("VERSION_NAME") as String
 
+base {
+    archivesName.set("iquack-sdk-kotlin")
+}
+
 publishing {
     publications {
-        create<MavenPublication>("maven") {
-            from(components["kotlin"])
-            pom {
-                name.set("IQuack SDK Core")
-                description.set(findProperty("POM_DESCRIPTION") as String)
-                url.set(findProperty("POM_URL") as String)
-                licenses {
-                    license {
-                        name.set(findProperty("POM_LICENSE_NAME") as String)
-                        url.set(findProperty("POM_LICENSE_URL") as String)
-                        distribution.set(findProperty("POM_LICENSE_DIST") as String)
-                    }
-                }
-                scm {
-                    url.set(findProperty("POM_SCM_URL") as String)
-                    connection.set(findProperty("POM_SCM_CONNECTION") as String)
-                    developerConnection.set(findProperty("POM_SCM_DEV_CONNECTION") as String)
-                }
-                developers {
-                    developer {
-                        id.set(findProperty("POM_DEVELOPER_ID") as String)
-                        name.set(findProperty("POM_DEVELOPER_NAME") as String)
-                        url.set(findProperty("POM_DEVELOPER_URL") as String)
-                    }
-                }
-            }
+        withType<MavenPublication>().configureEach {
+            artifactId = "iquack-sdk-kotlin"
         }
     }
     repositories {
         maven {
-            url = uri(findProperty("MAVEN_REPO_URL") as String)
+            name = "ossrh-staging-api"
+            url = uri(findProperty("mavenRepositoryUrl") as String)
             credentials {
-                username = findProperty("MAVEN_REPO_USER") as String
-                password = findProperty("MAVEN_REPO_PASSWORD") as String
+                username = findProperty("mavenCentralUsername") as String
+                password = findProperty("mavenCentralPassword") as String
             }
         }
     }
